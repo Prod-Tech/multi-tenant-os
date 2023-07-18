@@ -20,7 +20,7 @@ export const FeaturedPostItem: React.FC<{ post: PostProps }> = ({ post }) => {
 
   return (
     <Link
-      href={`/p/${post.properties.Slug.rich_text[0].plain_text}`}
+      href={`/p/${post.properties.Slug.rich_text[0] ? post.properties.Slug.rich_text[0].plain_text : ""}`}
       className="group"
     >
       {featuredImage != null ? (
@@ -29,7 +29,7 @@ export const FeaturedPostItem: React.FC<{ post: PostProps }> = ({ post }) => {
             src={featuredImage}
             fill
             priority
-            alt={post.properties.Page.title[0].plain_text}
+            alt={post.properties.Page.title[0] ? post.properties.Page.title[0].plain_text : ""}
             className="object-cover transition-transform group-hover:scale-[1.05]"
           />
         </div>
@@ -50,13 +50,13 @@ export const FeaturedPostItem: React.FC<{ post: PostProps }> = ({ post }) => {
 
         <div className="flex items-center gap-3 mt-6">
           <img
-            src={author.avatar_url}
-            alt={`Avatar of ${author.name}`}
+            src={author ? author.avatar_url : ""}
+            alt={`Avatar of ${author ? author.name : ""}`}
             className="w-6 h-6 rounded-full overflow-hidden"
           />
           <span className="font-medium text-sm text-gray-500">
             {
-              author.name ?? ""
+              author ? author.name : ""
             }
           </span>
           <Divider />

@@ -13,9 +13,10 @@ export interface Props {
 const PostItem: React.FC<Props> = ({ post }) => {
   const formattedDate = useMemo(
     () =>
-      dayjs(new Date(post.properties.Date.date.start)).format("MMM D, YYYY"),
-      [post.properties.Date.date.start]
+      dayjs(new Date((post.properties.Date.date ?? { start: new Date()}).start)).format("MMM D, YYYY"),
+    [(post.properties.Date.date ?? { start: new Date()}).start]
   )
+
 
   const author = post.properties.Authors.people[0]
   const authorExists = author != null && author.name != null
@@ -23,7 +24,7 @@ const PostItem: React.FC<Props> = ({ post }) => {
 
   return (
     <Link
-      href={`/p/${post.properties.Slug.rich_text[0].plain_text}`}
+      href={`/p/${post.properties.Slug.rich_text[0] ? post.properties.Slug.rich_text[0].plain_text : ""}`}
       className="flex flex-col border-b border-gray-100 group"
     >
       {category != null && <PostCategory category={category} />}

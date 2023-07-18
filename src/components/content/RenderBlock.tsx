@@ -99,7 +99,6 @@ export const RenderBlock: React.FC<Props> = ({ block }) => {
         </div>
       )
     }
-    case "audio": 
     case "file": {
       const { source, caption } = getMediaProperties(value);
       return (

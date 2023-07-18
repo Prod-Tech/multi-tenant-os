@@ -3,10 +3,10 @@ import Link from "@/components/content/Link"
 import { NotionText } from "@/components/content/NotionText"
 
 const convertHeadingToId = (heading: RichText[]) => {
-  return heading[0].plain_text
+  return heading[0] ? heading[0].plain_text
     .toLowerCase()
     .replace(/\s/g, "-")
-    .replace(/[?!:]/g, "")
+    .replace(/[?!:]/g, "") : ""
 }
 
 type HeadingTypes = "heading_1" | "heading_2" | "heading_3"

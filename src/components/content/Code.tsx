@@ -22,7 +22,6 @@ export const Code: React.FC<{ children: string; language?: string }> = ({
       await getHighlighter({
         langs: ["html", "javascript", "typescript", "shell", "rust", "go", "yaml", "ruby"],
         theme: theme === "light" ? LIGHT_THEME : DARK_THEME,
-        // @ts-ignore
       }).then((highlighter) =>
         highlighter.codeToHtml(children, { lang: language })
       )

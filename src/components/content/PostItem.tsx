@@ -13,9 +13,7 @@ export interface Props {
 const PostItem: React.FC<Props> = ({ post }) => {
   const formattedDate = useMemo(
     () =>
-      // @ts-ignore
       dayjs(new Date(post.properties.Date.date.start)).format("MMM D, YYYY"),
-      // @ts-ignore
       [post.properties.Date.date.start]
   )
 
@@ -25,7 +23,6 @@ const PostItem: React.FC<Props> = ({ post }) => {
 
   return (
     <Link
-      // @ts-ignore
       href={`/p/${post.properties.Slug.rich_text[0].plain_text}`}
       className="flex flex-col border-b border-gray-100 group"
     >
@@ -50,7 +47,7 @@ const PostItem: React.FC<Props> = ({ post }) => {
               className="w-6 h-6 rounded-full overflow-hidden"
             />
             <span className="font-medium text-sm text-gray-500">
-              {author.name}
+              {author.name ?? ""}
             </span>
             <Divider />
           </>

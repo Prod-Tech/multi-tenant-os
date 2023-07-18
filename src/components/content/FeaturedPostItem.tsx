@@ -10,9 +10,7 @@ import Image from "next/image"
 export const FeaturedPostItem: React.FC<{ post: PostProps }> = ({ post }) => {
   const formattedDate = useMemo(
     () =>
-      // @ts-ignore
       dayjs(new Date(post.properties.Date.date.start)).format("MMM D, YYYY"),
-      // @ts-ignore
     [post.properties.Date.date.start]
   )
 
@@ -22,7 +20,6 @@ export const FeaturedPostItem: React.FC<{ post: PostProps }> = ({ post }) => {
 
   return (
     <Link
-    // @ts-ignore
       href={`/p/${post.properties.Slug.rich_text[0].plain_text}`}
       className="group"
     >
@@ -32,7 +29,6 @@ export const FeaturedPostItem: React.FC<{ post: PostProps }> = ({ post }) => {
             src={featuredImage}
             fill
             priority
-            // @ts-ignore
             alt={post.properties.Page.title[0].plain_text}
             className="object-cover transition-transform group-hover:scale-[1.05]"
           />
@@ -54,16 +50,13 @@ export const FeaturedPostItem: React.FC<{ post: PostProps }> = ({ post }) => {
 
         <div className="flex items-center gap-3 mt-6">
           <img
-            // @ts-ignore
             src={author.avatar_url}
-            // @ts-ignore
             alt={`Avatar of ${author.name}`}
             className="w-6 h-6 rounded-full overflow-hidden"
           />
           <span className="font-medium text-sm text-gray-500">
             {
-              // @ts-ignore
-              author.name
+              author.name ?? ""
             }
           </span>
           <Divider />

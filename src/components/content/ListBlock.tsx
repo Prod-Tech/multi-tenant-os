@@ -25,7 +25,6 @@ const RenderListItem: React.FC<{ item: Block }> = ({ item }) => {
   const subListBlock: ListBlock | null = useMemo(() => {
     if (children.length === 0) return null
     return {
-      // @ts-ignore
       id: children[0].id,
       items: children,
       type: "ul",

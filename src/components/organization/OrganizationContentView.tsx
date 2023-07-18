@@ -1,5 +1,3 @@
-import { createServerSideHelpers } from '@trpc/react-query/server';
-import { appRouter } from '@/server/api/root';
 import { type NextPage, type GetStaticProps, GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { api } from "@/utils/api";
 import { useAuth } from "@clerk/nextjs";
@@ -8,8 +6,6 @@ import { PostProps } from "@/lib/types";
 import { getDatabase } from "@/lib/notion";
 import { Client } from "@notionhq/client";
 import { useEffect, useState } from "react";
-import superjson from 'superjson';
-import { createTRPCContext } from '@/server/api/trpc';
 
 export interface Props {
     organizationId: string

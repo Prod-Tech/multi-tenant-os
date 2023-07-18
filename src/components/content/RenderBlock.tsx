@@ -12,6 +12,7 @@ interface Props {
 
 export const RenderBlock: React.FC<Props> = ({ block }) => {
   const { type } = block
+  // @ts-ignore
   const value = block[type]
 
   /**
@@ -38,6 +39,7 @@ export const RenderBlock: React.FC<Props> = ({ block }) => {
     case "heading_3": {
       return <NotionHeading type={type} text={value.text} />
     }
+    // @ts-ignore: Current client version does not support `callout` but API does
     case "callout": {
       return (
         <div className="flex w-full p-4 my-8 rounded border border-transparent bg-blue-100">

@@ -97,7 +97,9 @@ import {
     )
   
     const blocksWithChildren = blocks.map((block) => {
+      // @ts-ignore
       if (block.has_children && !block[block.type].children) {
+        // @ts-ignore
         block[block.type]["children"] = childBlocks.find(
           (childBlock) => (childBlock.id = block.id)
         )?.children
@@ -133,7 +135,7 @@ import {
     if (block.type !== supportedBlockType) {
       throw new Error("Block is not an image")
     }
-    
+    // @ts-ignore
     const image = block[supportedBlockType] as
       | FileWithCaption
       | ExternalFileWithCaption

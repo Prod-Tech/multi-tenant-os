@@ -10,8 +10,8 @@ import Image from "next/image"
 export const FeaturedPostItem: React.FC<{ post: PostProps }> = ({ post }) => {
   const formattedDate = useMemo(
     () =>
-      dayjs(new Date(post.properties.Date.date.start)).format("MMM D, YYYY"),
-    [post.properties.Date.date.start]
+      dayjs(new Date((post.properties.Date.date ?? { start: new Date()}).start)).format("MMM D, YYYY"),
+    [(post.properties.Date.date ?? { start: new Date()}).start]
   )
 
   const author = post.properties.Authors.people[0]

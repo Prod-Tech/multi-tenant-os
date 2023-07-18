@@ -12,8 +12,6 @@ const OrganizationHome: NextPage = () => {
     const router = useRouter();
     const { isLoaded, userId, sessionId, getToken } = useAuth();
     const orgId = router.query.slug;
-
-    console.log(orgId);
     
     return (
         <>

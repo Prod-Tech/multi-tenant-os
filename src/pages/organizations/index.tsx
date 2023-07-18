@@ -15,7 +15,7 @@ const OrganizationJoinPage: NextPage = (props) => {
     }, []);
 
     if (!isLoaded || !userId) {
-        return (<p>Access Denied</p>);
+        return (<p></p>);
     } else {
         return (
             <>

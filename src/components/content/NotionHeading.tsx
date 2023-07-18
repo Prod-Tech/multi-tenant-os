@@ -1,8 +1,9 @@
 import { RichText } from "@notionhq/client/build/src/api-types"
-import Link from "@components/Link"
-import { NotionText } from "@components/NotionText"
+import Link from "@/components/content/Link"
+import { NotionText } from "@/components/content/NotionText"
 
 const convertHeadingToId = (heading: RichText[]) => {
+  // @ts-ignore
   return heading[0].plain_text
     .toLowerCase()
     .replace(/\s/g, "-")

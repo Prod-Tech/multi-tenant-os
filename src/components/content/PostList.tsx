@@ -1,10 +1,8 @@
 import React, { useState } from "react"
-import { PostProps } from "../lib/types"
+import { PostProps } from "../../lib/types"
 import { Categories } from "./Categories"
-import { CustomerStories } from "./CustomerStories"
 import { FeaturedPostItem } from "./FeaturedPostItem"
 import PostItem from "./PostItem"
-import { ScalingRailway } from "./ScalingRailway"
 
 const DEFAULT_POSTS_LENGTH = 8
 
@@ -37,9 +35,6 @@ export const PostList: React.FC<{
             </div>
           )}
         </div>
-
-        {showScalingRailway && <ScalingRailway />}
-        {showCustomerStories && <CustomerStories />}
 
         {featuredPosts.length > 0 && otherPosts.length > 0 && (
           <hr className="max-w-6xl mx-auto border-gray-100" />

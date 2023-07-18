@@ -1,4 +1,4 @@
-import Link from "@components/Link"
+import Link from "@/components/content/Link"
 import React, { Fragment } from "react"
 import Image from "next/image"
 import { twMerge } from "tailwind-merge"
@@ -78,6 +78,7 @@ export const NotionText: React.FC<{
             {text.link != null && !noLinks ? (
               <>
                 {text.content === text.link.url &&
+                // @ts-ignore
                 TEMPLATE_PATHS.some((path) => text.link.url.includes(path)) ? (
                   <Link href={text.link.url} className="flex justify-center">
                     <Image src="/button.svg" height={48} width={240} alt="" />

@@ -19,6 +19,8 @@ const OrganizationContentView: NextPage<Props> = ({ organizationId }) => {
     const [posts, setPosts] = useState<PostProps[]>([]);
 
     useEffect(() => {
+        console.log(notionIntegration.data);
+        
         if (notionIntegration.data) {
             const notion = new Client({ auth: notionIntegration.data.notionIntegrationToken });
             const posts = getDatabase(notion, notionIntegration.data.notionPostsTableId).then((posts) => {

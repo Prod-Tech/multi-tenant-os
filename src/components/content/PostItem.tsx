@@ -1,5 +1,5 @@
-import Link from "@components/Link"
-import { PostProps } from "@lib/types"
+import Link from "@/components/content/Link"
+import { PostProps } from "@/lib/types"
 import dayjs from "dayjs"
 import React, { useMemo } from "react"
 import { Divider } from "./Divider"
@@ -13,8 +13,10 @@ export interface Props {
 const PostItem: React.FC<Props> = ({ post }) => {
   const formattedDate = useMemo(
     () =>
+      // @ts-ignore
       dayjs(new Date(post.properties.Date.date.start)).format("MMM D, YYYY"),
-    [post.properties.Date.date.start]
+      // @ts-ignore
+      [post.properties.Date.date.start]
   )
 
   const author = post.properties.Authors.people[0]
@@ -23,6 +25,7 @@ const PostItem: React.FC<Props> = ({ post }) => {
 
   return (
     <Link
+      // @ts-ignore
       href={`/p/${post.properties.Slug.rich_text[0].plain_text}`}
       className="flex flex-col border-b border-gray-100 group"
     >

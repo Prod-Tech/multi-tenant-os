@@ -1,5 +1,5 @@
 import React, { useMemo } from "react"
-import { ListBlock } from "../lib/types"
+import { ListBlock } from "../../lib/types"
 import { NotionList } from "./NotionText"
 import { RenderBlock } from "./RenderBlock"
 import { Block } from "@notionhq/client/build/src/api-types"
@@ -25,6 +25,7 @@ const RenderListItem: React.FC<{ item: Block }> = ({ item }) => {
   const subListBlock: ListBlock | null = useMemo(() => {
     if (children.length === 0) return null
     return {
+      // @ts-ignore
       id: children[0].id,
       items: children,
       type: "ul",

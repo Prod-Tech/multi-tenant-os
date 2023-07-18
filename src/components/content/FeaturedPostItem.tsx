@@ -1,10 +1,10 @@
-import Link from "next/link"
 import { PostProps } from "@/lib/types"
 import dayjs from "dayjs"
 import React, { useMemo } from "react"
 import { Divider } from "./Divider"
 import { NotionText } from "./NotionText"
 import { PostCategory } from "./PostCategory"
+import Link from "./Link"
 import Image from "next/image"
 
 export const FeaturedPostItem: React.FC<{ post: PostProps }> = ({ post }) => {

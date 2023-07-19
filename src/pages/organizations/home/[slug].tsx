@@ -19,9 +19,8 @@ interface Props {
 
 const OrganizationHome: NextPage<Props> = ({ posts = [] }) => {
     const router = useRouter();
-    const { isLoaded, userId, sessionId, getToken } = useAuth();
     const orgId = router.query.slug as string;
-    
+    const { userId, isLoaded } = useAuth();
     const handleSettingsClicked = () => {
         // eslint-disable-next-line
         router.push(`/organizations/settings/${orgId}`);
@@ -32,7 +31,7 @@ const OrganizationHome: NextPage<Props> = ({ posts = [] }) => {
         router.push(`/organizations/home/${orgId}`);
     }
 
-    if (!isLoaded || !userId) {
+    if (!userId || !isLoaded) {
         return <p></p>
     } else {
         return (
@@ -91,7 +90,7 @@ const OrganizationHome: NextPage<Props> = ({ posts = [] }) => {
                     >
                         <path
                         className="fill-current text-gray-300 group-hover:text-cyan-300"
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d="M2 6a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1H8a3 3 0 00-3 3v1.5a1.5 1.5 0 01-3 0V6z"
                         clip-rule="evenodd"
                         />
@@ -116,7 +115,7 @@ const OrganizationHome: NextPage<Props> = ({ posts = [] }) => {
                     >
                         <path
                         className="fill-current text-gray-600 group-hover:text-cyan-600 dark:group-hover:text-sky-400"
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d="M2 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 002 2H4a2 2 0 01-2-2V5zm3 1h6v4H5V6zm6 6H5v2h6v-2z"
                         clip-rule="evenodd"
                         />
@@ -268,8 +267,9 @@ interface NotionIntegrationInfo {
 }
 
 export const getServerSideProps: GetServerSideProps<{ posts: PostProps[] }> = async (ctx) => {
-    const orgId = ctx.query.orgId as string
+    const orgId = ctx.query.slug as string
 
+    console.log("orgId_stuff", orgId);
     // eslint-disable-next-line
     const res = await fetch(`${process.env.SSR_HELPER_BASE_URL}/notionIntegration/${orgId}`);
     // eslint-disable-next-line

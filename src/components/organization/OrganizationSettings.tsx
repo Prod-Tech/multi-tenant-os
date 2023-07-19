@@ -14,6 +14,9 @@ type OrganizationSettingsProps = {
 const OrganizationSettings: NextPage<OrganizationSettingsProps> = (props) => {
     const { isLoaded, userId, sessionId, getToken } = useAuth();
     const createNotionIntegration = api.notionIntegration.createNotionIntegration.useMutation();
+    const existingNotionIntegration = api.notionIntegration.getNotionIntegration.useQuery({
+        organizationId: props.organizationId
+    })
 
     const handleSubmit = async () => {
         const orgNotionToken = (document.getElementById("organizationNotionToken") as HTMLInputElement).value
@@ -45,6 +48,7 @@ const OrganizationSettings: NextPage<OrganizationSettingsProps> = (props) => {
                         className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="organizationNotionToken"
                         type="text"
+                        value={existingNotionIntegration.data?.notionIntegrationToken}
                         placeholder="secret_XYZ"
                     />
                     </div>
@@ -59,6 +63,7 @@ const OrganizationSettings: NextPage<OrganizationSettingsProps> = (props) => {
                         className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="organizationNotionTableId"
                         type="text"
+                        value={existingNotionIntegration.data?.notionPostsTableId}
                         placeholder="abc123"
                     />
                     </div>

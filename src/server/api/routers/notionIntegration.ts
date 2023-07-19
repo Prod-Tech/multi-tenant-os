@@ -24,8 +24,15 @@ export const notionIntegrationRouter = createTRPCRouter({
     notionPostsTableId: z.string(),
   }))
   .mutation(async ({ctx, input}) => {
-    const notionIntegration = await ctx.prisma.organizationNotionIntegration.create({
-      data: {
+    const notionIntegration = await ctx.prisma.organizationNotionIntegration.upsert({
+      where: {
+        organizationId: input.organizationId
+      },
+      update: {
+        notionIntegrationToken: input.notionIntegrationToken,
+        notionPostsTableId: input.notionPostsTableId,
+      },
+      create: {
         organizationId: input.organizationId,
         notionIntegrationToken: input.notionIntegrationToken,
         notionPostsTableId: input.notionPostsTableId,

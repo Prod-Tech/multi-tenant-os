@@ -13,7 +13,7 @@ export interface Props {
   }
 
 const OrganizationContentView: NextPage<Props> = ({ posts = [] }) => {
-    const { isLoaded, userId, sessionId, getToken } = useAuth();
+    // const { isLoaded, userId, sessionId, getToken } = useAuth();
     // const notionIntegration = api.notionIntegration.getNotionIntegration.useQuery({organizationId: props.organizationId});
 
     /*
@@ -32,17 +32,18 @@ const OrganizationContentView: NextPage<Props> = ({ posts = [] }) => {
             });
         }
     }, [notionIntegration.data]);
-    */
+    
     
     if (!isLoaded || !userId) {
         return (
             <p></p>
         )
     } else {
+    */
         return (
             <PostList posts={posts} showCustomerStories />
         )
-    }
+    // }
 }
 
 export const getStaticProps: GetStaticProps = async () => {

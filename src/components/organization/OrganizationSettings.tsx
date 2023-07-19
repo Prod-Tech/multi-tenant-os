@@ -17,7 +17,7 @@ const OrganizationSettings: NextPage<OrganizationSettingsProps> = (props) => {
 
     const handleSubmit = async () => {
         const orgNotionToken = (document.getElementById("organizationNotionToken") as HTMLInputElement).value
-        const orgNotionPostsTableId = (document.getElementById("organizationNotionPostsTableId") as HTMLInputElement).value
+        const orgNotionPostsTableId = (document.getElementById("organizationNotionTableId") as HTMLInputElement).value
         await createNotionIntegration.mutateAsync({
             organizationId: props.organizationId,
             notionIntegrationToken: orgNotionToken,
@@ -37,7 +37,7 @@ const OrganizationSettings: NextPage<OrganizationSettingsProps> = (props) => {
                     <div className="mb-4 w-full">
                     <label
                         className="block text-orange-700 text-sm font-bold mb-2"
-                        htmlFor="organizationNotionToken"
+                        htmlFor="organizationNotionTokenLabel"
                     >
                         Organization Notion API Token
                     </label>
@@ -51,7 +51,7 @@ const OrganizationSettings: NextPage<OrganizationSettingsProps> = (props) => {
                     <div className="mb-4 w-full">
                     <label
                         className="block text-orange-700 text-sm font-bold mb-2"
-                        htmlFor="organizationNotionTableId"
+                        htmlFor="organizationNotionTableIdLabel"
                     >
                         Notion Content Table ID
                     </label>

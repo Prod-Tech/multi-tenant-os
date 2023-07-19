@@ -24,6 +24,7 @@ const OrganizationHome: NextPage = () => {
         router.push(`/organizations/home/${orgId}`);
     }
 
+    
     if (!isLoaded || !userId) {
         return <p></p>
     } else {

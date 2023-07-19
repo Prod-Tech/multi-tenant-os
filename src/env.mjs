@@ -11,6 +11,7 @@ const server = z.object({
   CLERK_SECRET_KEY: z.string().min(1),
   NOTION_API_KEY: z.string().min(1),
   POSTS_TABLE_ID: z.string().min(1),
+  SSR_HELPER_BASE_URL: z.string().url(),
 });
 
 /**
@@ -35,6 +36,7 @@ const processEnv = {
   CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
   NOTION_API_KEY: process.env.NOTION_API_KEY,
   POSTS_TABLE_ID: process.env.POSTS_TABLE_ID,
+  SSR_HELPER_BASE_URL: process.env.SSR_HELPER_BASE_URL,
 };
 
 // Don't touch the part below

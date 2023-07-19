@@ -7,16 +7,13 @@ import {
   import { Client } from "@notionhq/client"
   import { ListBlock, PostProps } from "@/lib/types"
 
-  const notion = new Client({
-    auth: process.env.NOTION_API_KEY,
-  })
-
   /**
    * Get Notion database
    * @param databaseId ID of the collection to query
    * @returns A list of published posts from the collection
    */
   export const getDatabase = async (
+    notion: Client,
     databaseId: string,
     { includeUnpublished }: { includeUnpublished: boolean } = {
       includeUnpublished: false,
@@ -53,14 +50,14 @@ import {
       })
   }
   
-  export const getPage = async (pageId: string) => {
+  export const getPage = async (notion: Client, pageId: string) => {
 
     const response = await notion.pages.retrieve({ page_id: pageId })
   
     return response as unknown as PostProps
   }
   
-  export const getBlocks = async (blockId: string) => {
+  export const getBlocks = async (notion: Client, blockId: string) => {
 
     const response = await notion.blocks.children.list({
       block_id: blockId,
@@ -80,9 +77,9 @@ import {
     })
   }
   
-  export const mapDatabaseItemToPageProps = async (id: string) => {
-    const page = await getPage(id)
-    const blocks = await getBlocks(id)
+  export const mapDatabaseItemToPageProps = async (notion: Client, id: string) => {
+    const page = await getPage(notion, id)
+    const blocks = await getBlocks(notion, id)
   
     const childBlocks = await Promise.all(
       blocks
@@ -90,7 +87,7 @@ import {
         .map(async (block) => {
           return {
             id: block.id,
-            children: await getBlocks(block.id),
+            children: await getBlocks(notion, block.id),
           }
         })
     )

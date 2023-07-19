@@ -7,7 +7,6 @@ import Head from "next/head";
 import Link from "next/link";
 import { api } from "@/utils/api";
 import { useAuth } from "@clerk/nextjs";
-import OrganizationContentView from "@/components/organization/OrganizationContentView";
 import { Client } from "@notionhq/client";
 import { getDatabase } from "@/lib/notion";
 import { PostProps } from "@/lib/types";
@@ -261,14 +260,30 @@ const OrganizationHome: NextPage<Props> = ({ posts = [] }) => {
     }
 }
 
-export const getServerSideProps: GetServerSideProps<{ posts: PostProps[] }> = async () => {
-    if (process.env.POSTS_TABLE_ID == null) {
+interface NotionIntegrationInfo {
+    id: string;
+    organizationId: string;
+    notionIntegrationToken: string;
+    notionPostsTableId: string;
+}
+
+export const getServerSideProps: GetServerSideProps<{ posts: PostProps[] }> = async (ctx) => {
+    const orgId = ctx.query.orgId as string
+
+    // eslint-disable-next-line
+    const res = await fetch(`${process.env.SSR_HELPER_BASE_URL}/notionIntegration/${orgId}`);
+    // eslint-disable-next-line
+    const data: NotionIntegrationInfo = (await res.json());
+
+    if (!data) {
       return {
         notFound: true,
       }
     }
     
-    const posts = await getDatabase(process.env.POSTS_TABLE_ID)
+    const client = new Client({ auth: data.notionIntegrationToken});
+
+    const posts = await getDatabase(client, data.notionPostsTableId);
 
     return {
       props: { posts },

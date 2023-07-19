@@ -63,7 +63,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 
   const client = new Client({ auth: process.env.NOTION_API_KEY })
-  const posts = await getDatabase(process.env.POSTS_TABLE_ID, {
+
+  const posts = await getDatabase(client, process.env.POSTS_TABLE_ID, {
     includeUnpublished: true,
   })
 
@@ -89,7 +90,9 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
     }
   }
 
-  const posts = await getDatabase(process.env.POSTS_TABLE_ID, {
+  const client = new Client({ auth: process.env.NOTION_API_KEY })
+
+  const posts = await getDatabase(client, process.env.POSTS_TABLE_ID, {
     includeUnpublished: true,
   })
   const slug = params.slug as string
@@ -119,7 +122,7 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
     }
   }
 
-  const props = await mapDatabaseItemToPageProps(post.id)
+  const props = await mapDatabaseItemToPageProps(client, post.id)
 
   return {
     props: {

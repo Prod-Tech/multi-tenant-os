@@ -7,7 +7,6 @@ import Head from "next/head";
 import Link from "next/link";
 import { api } from "@/utils/api";
 import { useAuth } from "@clerk/nextjs";
-import OrganizationContentView from "@/components/organization/OrganizationContentView";
 import OrganizationSettings from "@/components/organization/OrganizationSettings";
 
 const OrganizationHome: NextPage = () => {

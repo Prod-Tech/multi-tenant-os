@@ -40,15 +40,18 @@ export const PostPage: React.FC<Props> = ({ post, relatedPosts, children }) => {
                 <Divider />
               </>
             )}
+          </div>
+
+          <header className="mt-5 mb-16 max-w-[800px] mx-auto">
+            <h1 className="text-5xl text-center font-bold">
+              <NotionText text={post.properties.Page.title} />
+            </h1>
+            <></>
+            <div className="space-x-3 my-5 text-center text-gray-500">
             <time dateTime={(post.properties.Date.date ?? { start: "" }).start}>
               {formattedDate}
             </time>
-          </div>
-
-          <header className="mt-5 mb-16 max-w-[800px]">
-            <h1 className="text-huge font-bold">
-              <NotionText text={post.properties.Page.title} />
-            </h1>
+            </div>
           </header>
 
           <section className="max-w-[736px] mx-auto text-base sm:text-lg leading-8">

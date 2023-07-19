@@ -1,18 +1,24 @@
 import { type NextPage } from "next";
 import { useAuth } from "@clerk/nextjs";
 import { api } from "@/utils/api";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 
 const MyOrganizationsPage: NextPage = () => {
     const router = useRouter();
     const { isLoaded, userId } = useAuth();
     const myOrganizations = api.organization.getUserOrganizations.useQuery();
-    
+    const hasRefetchedRef = useRef(false);
+
     useEffect(() => {
         console.log(myOrganizations.data);
-        // eslint-disable-next-line
-        myOrganizations.refetch();
+    
+        // Check some condition before refetching
+        if (myOrganizations.data === undefined) {
+            // eslint-disable-next-line
+            myOrganizations.refetch();
+        }
+
     }, [myOrganizations.data]);
 
     const handleClick = (organization: {

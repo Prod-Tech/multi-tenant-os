@@ -52,7 +52,7 @@ const OrganizationHome: NextPage = () => {
                     <a
                     href="#"
                     aria-label="dashboard"
-                    className="relative flex items-center space-x-4 rounded-xl bg-gradient-to-r from-sky-600 to-cyan-400 px-4 py-3 text-white"
+                    className="relative flex items-center space-x-4 rounded-xl px-4 py-3 dark:text-gray-300"
                     >
                     <svg className="-ml-1 h-6 w-6" viewBox="0 0 24 24" fill="none">
                         <path
@@ -68,7 +68,7 @@ const OrganizationHome: NextPage = () => {
                         className="fill-current group-hover:text-sky-300"
                         ></path>
                     </svg>
-                    <span className="-mr-1 font-medium">Home</span>
+                    <span className="-mr-1 font-medium" onClick={handleHomeClicked}>Home</span>
                     </a>
                 </li>
                 <li>
@@ -99,7 +99,7 @@ const OrganizationHome: NextPage = () => {
                 <li>
                     <a
                     href="#"
-                    className="group flex items-center space-x-4 rounded-md px-4 py-3 text-gray-600 dark:text-gray-300"
+                    className="group flex items-center space-x-4 rounded-md px-4 py-3 text-gray-600 bg-gradient-to-r from-sky-600 to-cyan-400 dark:text-white"
                     >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"

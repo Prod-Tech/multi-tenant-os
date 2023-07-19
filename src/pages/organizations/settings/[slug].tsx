@@ -16,13 +16,15 @@ const OrganizationHome: NextPage = () => {
     const orgId = router.query.slug as string;
     
     const handleSettingsClicked = () => {
+        // eslint-disable-next-line
         router.push(`/organizations/settings/${orgId}`);
     }
 
     const handleHomeClicked = () => {
+        // eslint-disable-next-line
         router.push(`/organizations/home/${orgId}`);
     }
-    
+
     if (!isLoaded || !userId) {
         return <p></p>
     } else {

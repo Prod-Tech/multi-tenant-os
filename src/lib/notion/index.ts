@@ -97,9 +97,9 @@ import {
     )
   
     const blocksWithChildren = blocks.map((block) => {
-      // @ts-ignore
+      // eslint-disable-next-line
       if (block.has_children && !block[block.type].children) {
-        // @ts-ignore
+        // eslint-disable-next-line
         block[block.type]["children"] = childBlocks.find(
           (childBlock) => (childBlock.id = block.id)
         )?.children

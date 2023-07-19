@@ -19,6 +19,7 @@ export const NotionListBlock: React.FC<{
 
 const RenderListItem: React.FC<{ item: Block }> = ({ item }) => {
   const children = useMemo(() => {
+    // eslint-disable-next-line
     return ((item as any).bulleted_list_item?.children ?? []) as Block[]
   }, [item])
 

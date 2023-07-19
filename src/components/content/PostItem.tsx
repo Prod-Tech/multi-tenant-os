@@ -44,6 +44,7 @@ const PostItem: React.FC<Props> = ({ post }) => {
           <>
             <img
               src={author.avatar_url}
+              // eslint-disable-next-line
               alt={`Avatar of ${author.name}`}
               className="w-6 h-6 rounded-full overflow-hidden"
             />

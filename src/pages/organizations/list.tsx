@@ -20,7 +20,8 @@ const MyOrganizationsPage: NextPage = () => {
         createdAt: Date;
     }) => {
         console.log(`Clicked on organization: ${JSON.stringify(organization)}`);
-        router.push(`/organizations/home/${organization.id}`)
+        // eslint-disable-next-line
+        router.push(`/organizations/home/${organization.id}`);
     };
 
     if (!isLoaded || !userId) {

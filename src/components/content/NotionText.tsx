@@ -79,7 +79,7 @@ export const NotionText: React.FC<{
               <>
                 {text.content === text.link.url &&
                 TEMPLATE_PATHS.some((path) => text.link ? text.link.url.includes(path) : false) ? (
-                  <Link href={text.link!.url} className="flex justify-center">
+                  <Link href={text.link.url} className="flex justify-center">
                     <Image src="/button.svg" height={48} width={240} alt="" />
                   </Link>
                 ) : (

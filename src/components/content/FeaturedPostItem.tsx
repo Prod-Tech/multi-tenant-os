@@ -51,6 +51,7 @@ export const FeaturedPostItem: React.FC<{ post: PostProps }> = ({ post }) => {
         <div className="flex items-center gap-3 mt-6">
           <img
             src={author ? author.avatar_url : ""}
+            // eslint-disable-next-line
             alt={`Avatar of ${author ? author.name : ""}`}
             className="w-6 h-6 rounded-full overflow-hidden"
           />

@@ -33,7 +33,7 @@ const OrganizationContentView: NextPage<Props> = ({ posts = [] }) => {
         }
     }, [notionIntegration.data]);
     */
-
+    
     if (!isLoaded || !userId) {
         return (
             <p></p>
@@ -52,7 +52,7 @@ export const getStaticProps: GetStaticProps = async () => {
       }
     }
     
-    const client = new Client({ auth: process.env.NOTION_TOKEN })
+    const client = new Client({ auth: process.env.NOTION_API_KEY })
 
     const posts = await getDatabase(client, process.env.POSTS_TABLE_ID)
     
@@ -60,6 +60,6 @@ export const getStaticProps: GetStaticProps = async () => {
       props: { posts },
       revalidate: 60, // 15 minutes
     }
-  }
+}
 
 export default OrganizationContentView;

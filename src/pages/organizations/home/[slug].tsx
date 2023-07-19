@@ -251,7 +251,7 @@ const OrganizationHome: NextPage<Props> = ({ posts = [] }) => {
                 <div
                 className="flex h-[80vh] border-1 border-gray-300 dark:border-gray-600"
                 >
-                <PostList posts={posts} showCustomerStories />
+                <PostList posts={posts} organizationId={orgId} />
                 </div>
             </div>
         </>
@@ -268,8 +268,6 @@ interface NotionIntegrationInfo {
 
 export const getServerSideProps: GetServerSideProps<{ posts: PostProps[] }> = async (ctx) => {
     const orgId = ctx.query.slug as string
-
-    console.log("orgId_stuff", orgId);
     // eslint-disable-next-line
     const res = await fetch(`${process.env.SSR_HELPER_BASE_URL}/notionIntegration/${orgId}`);
     // eslint-disable-next-line

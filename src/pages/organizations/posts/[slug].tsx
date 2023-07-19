@@ -1,5 +1,5 @@
 import { Block } from "@notionhq/client/build/src/api-types"
-import { GetStaticPaths, GetStaticProps, NextPage } from "next"
+import { GetServerSideProps, GetStaticPaths, GetStaticProps, NextPage } from "next"
 import ErrorPage from "next/error"
 import { useRouter } from "next/router"
 import { Fragment, useMemo } from "react"
@@ -54,7 +54,44 @@ const Post: NextPage<Props> = ({ page, relatedPosts, ...props }) => {
   )
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
+interface NotionIntegrationInfo {
+    id: string;
+    organizationId: string;
+    notionIntegrationToken: string;
+    notionPostsTableId: string;
+}
+
+
+export const getServerSideProps: GetServerSideProps<{ page: PostProps, blocks: Block[] }> = async (ctx) => {
+    const slug = ctx.query.slug as string;
+
+    const orgId = slug.split(":")[0];
+    const postId = slug.split(":")[1];
+
+    // eslint-disable-next-line
+    const res = await fetch(`${process.env.SSR_HELPER_BASE_URL}/notionIntegration/${orgId}`);
+    // eslint-disable-next-line
+    const data: NotionIntegrationInfo = (await res.json());
+
+    if (!data || !orgId || !postId) {
+      return {
+        notFound: true,
+      }
+    }
+    
+    const client = new Client({ auth: data.notionIntegrationToken});
+
+    const props = await mapDatabaseItemToPageProps(client, postId);
+
+    return {
+        props
+    }
+}
+
+/*
+export const getStaticPaths: GetStaticPaths = async (ctx) => {
+  console.log("getStaticPathsCtx: ", ctx)
+
   if (process.env.POSTS_TABLE_ID == null) {
     return {
       paths: [],
@@ -76,14 +113,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 
-export const getStaticProps: GetStaticProps<Props> = async (context) => {
+export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
+  console.log("getStaticPropsContext: ", ctx)
   if (process.env.POSTS_TABLE_ID == null) {
     return {
       notFound: true,
     }
   }
 
-  const { params } = context
+  const { params } = ctx
   if (params == null) {
     return {
       notFound: true,
@@ -132,5 +170,5 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
     revalidate: 1,
   }
 }
-
+*/
 export default Post

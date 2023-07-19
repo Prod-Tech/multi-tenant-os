@@ -8,9 +8,10 @@ import { PostCategory } from "./PostCategory"
 
 export interface Props {
   post: PostProps
+  organizationId: string
 }
 
-const PostItem: React.FC<Props> = ({ post }) => {
+const PostItem: React.FC<Props> = ({ post, organizationId }) => {
   const formattedDate = useMemo(
     () =>
       dayjs(new Date((post.properties.Date.date ?? { start: new Date()}).start)).format("MMM D, YYYY"),
@@ -23,7 +24,7 @@ const PostItem: React.FC<Props> = ({ post }) => {
 
   return (
     <Link
-      href={`/organizations/posts/${post.id}`}
+      href={`/organizations/posts/${organizationId}:${post.id}`}
       className="flex flex-col border-b bg-gradient group"
     >
       {category != null && <PostCategory category={category} />}

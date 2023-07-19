@@ -7,7 +7,7 @@ import { PostCategory } from "./PostCategory"
 import Link from "./Link"
 import Image from "next/image"
 
-export const FeaturedPostItem: React.FC<{ post: PostProps }> = ({ post }) => {
+export const FeaturedPostItem: React.FC<{ post: PostProps, organizationId: string }> = ({ post, organizationId }) => {
   const formattedDate = useMemo(
     () =>
       dayjs(new Date((post.properties.Date.date ?? { start: new Date()}).start)).format("MMM D, YYYY"),
@@ -20,7 +20,7 @@ export const FeaturedPostItem: React.FC<{ post: PostProps }> = ({ post }) => {
 
   return (
     <Link
-  href={`/organizations/posts/${post.id}`}
+  href={`/organizations/posts/${organizationId}:${post.id}`}
   className="group flex flex-col border-b transition-colors bg-gradient-to-r from-blue-400 via-purple-500 to-red-500 hover:bg-gray-50 rounded-lg shadow-lg overflow-hidden p-5"
 >
   {featuredImage != null ? (

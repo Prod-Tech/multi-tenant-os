@@ -246,7 +246,7 @@ const OrganizationHome: NextPage = () => {
                 <div
                 className="flex h-[80vh] items-center justify-center rounded-xl border-2 border-dashed border-gray-300 dark:border-gray-600"
                 >
-                <OrganizationContentView organizationId={orgId} preview={true}/>
+                <OrganizationContentView posts={[]} preview={true}/>
                 </div>
             </div>
             </div>

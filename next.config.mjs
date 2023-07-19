@@ -18,5 +18,15 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+
+  async rewrites() {
+    return [
+      {
+        source: '/notion/:path*',
+        destination: 'https://api.notion.com/:path*',
+      },
+    ]
+  },
+
 };
 export default config;

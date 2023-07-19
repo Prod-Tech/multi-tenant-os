@@ -1,4 +1,4 @@
-import { type NextPage, type GetStaticProps, GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
+import { type NextPage, type GetStaticProps, GetServerSidePropsContext, InferGetServerSidePropsType, GetServerSideProps } from "next";
 import { api } from "@/utils/api";
 import { useAuth } from "@clerk/nextjs";
 import { PostList } from "../content/PostList";
@@ -25,7 +25,7 @@ const OrganizationContentView: NextPage<Props> = (props: Props) => {
                 notionIntegration.data.notionPostsTableId.length == 0) {
                 return;
             }
-            const notion = new Client({ auth: notionIntegration.data.notionIntegrationToken });
+            const notion = new Client({ baseUrl: "http://localhost:3000/notion", auth: notionIntegration.data.notionIntegrationToken });
             // eslint-disable-next-line
             getDatabase(notion, notionIntegration.data.notionPostsTableId).then((posts) => {
                 setPosts(posts);

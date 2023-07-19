@@ -16,4 +16,21 @@ export const notionIntegrationRouter = createTRPCRouter({
       }
     });
   }),
+
+  createNotionIntegration: protectedProcedure
+  .input(z.object({
+    organizationId: z.string(),
+    notionIntegrationToken: z.string(),
+    notionPostsTableId: z.string(),
+  }))
+  .mutation(async ({ctx, input}) => {
+    const notionIntegration = await ctx.prisma.organizationNotionIntegration.create({
+      data: {
+        organizationId: input.organizationId,
+        notionIntegrationToken: input.notionIntegrationToken,
+        notionPostsTableId: input.notionPostsTableId,
+      }
+    });
+    return notionIntegration;
+  })
 });

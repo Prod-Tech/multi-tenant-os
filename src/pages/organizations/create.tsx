@@ -7,6 +7,16 @@ import { useAuth } from "@clerk/nextjs";
 
 const OrganizationJoinPage: NextPage = () => {
     const { isLoaded, userId, sessionId, getToken } = useAuth();
+    const createOrg = api.organization.createOrganization.useMutation();
+
+    const handleCreate = async () => {
+      const orgName = (document.getElementById("organizationName") as HTMLInputElement).value
+      console.log(orgName)
+      if (!userId) {
+        return;
+      }
+      await createOrg.mutateAsync({ ownerUserId: userId, name: orgName });
+    }
 
     if (!isLoaded || !userId) {
         return (
@@ -26,7 +36,7 @@ const OrganizationJoinPage: NextPage = () => {
                   </label>
                   <input
                     className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    id="organization"
+                    id="organizationName"
                     type="text"
                     placeholder="Organization Name"
                   />
@@ -35,6 +45,7 @@ const OrganizationJoinPage: NextPage = () => {
                   <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     type="button"
+                    onClick={handleCreate}
                   >
                     Create
                   </button>

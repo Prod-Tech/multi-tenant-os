@@ -21,8 +21,12 @@ const OrganizationContentView: NextPage<Props> = (props: Props) => {
         console.log(notionIntegration.data);
 
         if (notionIntegration.data) {
+            if (notionIntegration.data.notionIntegrationToken.length == 0 ||
+                notionIntegration.data.notionPostsTableId.length == 0) {
+                return;
+            }
             const notion = new Client({ auth: notionIntegration.data.notionIntegrationToken });
-            const posts = getDatabase(notion, notionIntegration.data.notionPostsTableId).then((posts) => {
+            getDatabase(notion, notionIntegration.data.notionPostsTableId).then((posts) => {
                 setPosts(posts);
             });
         }

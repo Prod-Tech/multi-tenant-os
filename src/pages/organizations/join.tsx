@@ -8,6 +8,11 @@ import { useAuth } from "@clerk/nextjs";
 const OrganizationJoinPage: NextPage = () => {
     const { isLoaded, userId, sessionId, getToken } = useAuth();
 
+    const handleJoin = async () => {
+      const orgId = (document.getElementById("organizationId") as HTMLInputElement).value
+      console.log(orgId)
+    }
+
     if (!isLoaded || !userId) {
         return (
             <p></p>
@@ -26,7 +31,7 @@ const OrganizationJoinPage: NextPage = () => {
                   </label>
                   <input
                     className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    id="organization"
+                    id="organizationId"
                     type="text"
                     placeholder="Paste Code"
                   />

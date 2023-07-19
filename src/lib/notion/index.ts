@@ -7,19 +7,21 @@ import {
   import { Client } from "@notionhq/client"
   import { ListBlock, PostProps } from "@/lib/types"
 
+  const notion = new Client({
+    auth: process.env.NOTION_API_KEY,
+  })
+
   /**
    * Get Notion database
    * @param databaseId ID of the collection to query
    * @returns A list of published posts from the collection
    */
   export const getDatabase = async (
-    notion: Client,
     databaseId: string,
     { includeUnpublished }: { includeUnpublished: boolean } = {
       includeUnpublished: false,
     }
   ) => {
-
     const response = await notion.databases.query({
       database_id: databaseId,
     })
@@ -51,14 +53,14 @@ import {
       })
   }
   
-  export const getPage = async (notion: Client, pageId: string) => {
+  export const getPage = async (pageId: string) => {
 
     const response = await notion.pages.retrieve({ page_id: pageId })
   
     return response as unknown as PostProps
   }
   
-  export const getBlocks = async (notion: Client, blockId: string) => {
+  export const getBlocks = async (blockId: string) => {
 
     const response = await notion.blocks.children.list({
       block_id: blockId,
@@ -70,21 +72,17 @@ import {
   
   export const mapDatabaseToPaths = (database: PostProps[]) => {
     return database.map((item) => {
-        const slug = item.properties.Slug.rich_text[0];
-        if (slug === undefined) {
+        const itemId = item.id;
+        if (itemId === undefined) {
             return { params: { slug: "" } }
         }
-        return { params: { slug: slug.plain_text } }
+        return { params: { slug: itemId } }
     })
   }
   
-  export const mapDatabaseItemToPageProps = async (notionApiToken: string, id: string) => {
-    const notion = new Client({
-        auth: notionApiToken,
-    })
-
-    const page = await getPage(notion, id)
-    const blocks = await getBlocks(notion, id)
+  export const mapDatabaseItemToPageProps = async (id: string) => {
+    const page = await getPage(id)
+    const blocks = await getBlocks(id)
   
     const childBlocks = await Promise.all(
       blocks
@@ -92,7 +90,7 @@ import {
         .map(async (block) => {
           return {
             id: block.id,
-            children: await getBlocks(notion, block.id),
+            children: await getBlocks(block.id),
           }
         })
     )

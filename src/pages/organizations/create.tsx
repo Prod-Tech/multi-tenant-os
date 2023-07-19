@@ -11,7 +11,6 @@ const OrganizationJoinPage: NextPage = () => {
 
     const handleCreate = async () => {
       const orgName = (document.getElementById("organizationName") as HTMLInputElement).value
-      console.log(orgName)
       if (!userId) {
         return;
       }

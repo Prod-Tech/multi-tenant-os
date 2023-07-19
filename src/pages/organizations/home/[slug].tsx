@@ -1,5 +1,5 @@
 
-import { type NextPage } from "next";
+import { GetServerSideProps, GetStaticProps, type NextPage } from "next";
 import { useRouter } from 'next/router'
 
 import { signIn, signOut, useSession } from "next-auth/react";
@@ -8,8 +8,17 @@ import Link from "next/link";
 import { api } from "@/utils/api";
 import { useAuth } from "@clerk/nextjs";
 import OrganizationContentView from "@/components/organization/OrganizationContentView";
+import { Client } from "@notionhq/client";
+import { getDatabase } from "@/lib/notion";
+import { PostProps } from "@/lib/types";
+import { PostList } from "@/components/content/PostList";
 
-const OrganizationHome: NextPage = () => {
+interface Props {
+    posts: PostProps[]
+    preview: boolean
+}
+
+const OrganizationHome: NextPage<Props> = ({ posts = [] }) => {
     const router = useRouter();
     const { isLoaded, userId, sessionId, getToken } = useAuth();
     const orgId = router.query.slug as string;
@@ -241,17 +250,28 @@ const OrganizationHome: NextPage = () => {
                 </div>
                 </div>
             </div>
-        
-            <div className="px-6 pt-6 2xl:container">
                 <div
-                className="flex h-[80vh] items-center justify-center rounded-xl border-2 border-dashed border-gray-300 dark:border-gray-600"
+                className="flex h-[80vh] border-1 border-gray-300 dark:border-gray-600"
                 >
-                <OrganizationContentView posts={[]} preview={true}/>
+                <PostList posts={posts} showCustomerStories />
                 </div>
-            </div>
             </div>
         </>
         )
+    }
+}
+
+export const getServerSideProps: GetServerSideProps<{ posts: PostProps[] }> = async () => {
+    if (process.env.POSTS_TABLE_ID == null) {
+      return {
+        notFound: true,
+      }
+    }
+    
+    const posts = await getDatabase(process.env.POSTS_TABLE_ID)
+
+    return {
+      props: { posts },
     }
 }
 

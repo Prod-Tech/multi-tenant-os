@@ -71,7 +71,7 @@ export const RenderBlock: React.FC<Props> = ({ block }) => {
     case "image": {
       const { source, caption } = getMediaProperties(value)
       return (
-        <div className="flex flex-col my-8">
+        <div className="max-w-md max-h-md flex-col my-8">
           <NotionImage src={source} alt={caption} blockId={block.id} />
           {caption && <p className="text-gray-600 mt-3 text-sm">{caption}</p>}
         </div>

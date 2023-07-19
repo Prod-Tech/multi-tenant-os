@@ -20,7 +20,7 @@ export const FeaturedPostItem: React.FC<{ post: PostProps }> = ({ post }) => {
 
   return (
     <Link
-      href={`/p/${post.properties.Slug.rich_text[0] ? post.properties.Slug.rich_text[0].plain_text : ""}`}
+      href={`/organizations/posts/${post.id}`}
       className="group"
     >
       {featuredImage != null ? (

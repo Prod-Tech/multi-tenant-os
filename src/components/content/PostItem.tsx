@@ -17,15 +17,14 @@ const PostItem: React.FC<Props> = ({ post }) => {
     [(post.properties.Date.date ?? { start: new Date()}).start]
   )
 
-
   const author = post.properties.Authors.people[0]
   const authorExists = author != null && author.name != null
   const category = post.properties.Category.select?.name
 
   return (
     <Link
-      href={`/p/${post.properties.Slug.rich_text[0] ? post.properties.Slug.rich_text[0].plain_text : ""}`}
-      className="flex flex-col border-b border-gray-100 group"
+      href={`/organizations/posts/${post.id}`}
+      className="flex flex-col border-b bg-gradient group"
     >
       {category != null && <PostCategory category={category} />}
 
@@ -42,12 +41,6 @@ const PostItem: React.FC<Props> = ({ post }) => {
       <div className="flex items-center gap-3 mt-6 mb-10">
         {authorExists && (
           <>
-            <img
-              src={author.avatar_url}
-              // eslint-disable-next-line
-              alt={`Avatar of ${author.name}`}
-              className="w-6 h-6 rounded-full overflow-hidden"
-            />
             <span className="font-medium text-sm text-gray-500">
               {author.name ?? ""}
             </span>

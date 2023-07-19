@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 export interface Props {
     posts: PostProps[]
     preview: boolean
-  }
+}
 
 const OrganizationContentView: NextPage<Props> = ({ posts = [] }) => {
     // const { isLoaded, userId, sessionId, getToken } = useAuth();
@@ -38,12 +38,13 @@ const OrganizationContentView: NextPage<Props> = ({ posts = [] }) => {
         return (
             <p></p>
         )
-    } else {
+    }
     */
-        return (
-            <PostList posts={posts} showCustomerStories />
-        )
-    // }
+    return (
+        <div>
+        <PostList posts={posts} showCustomerStories />
+        </div>
+    )
 }
 
 export const getStaticProps: GetStaticProps = async () => {
@@ -55,7 +56,7 @@ export const getStaticProps: GetStaticProps = async () => {
     
     const client = new Client({ auth: process.env.NOTION_API_KEY })
 
-    const posts = await getDatabase(client, process.env.POSTS_TABLE_ID)
+    const posts = await getDatabase(process.env.POSTS_TABLE_ID)
     
     return {
       props: { posts },

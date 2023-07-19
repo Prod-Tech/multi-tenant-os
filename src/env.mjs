@@ -9,6 +9,8 @@ const server = z.object({
   NODE_ENV: z.enum(["development", "test", "production"]),
   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string().min(1),
   CLERK_SECRET_KEY: z.string().min(1),
+  NOTION_API_KEY: z.string().min(1),
+  POSTS_TABLE_ID: z.string().min(1),
 });
 
 /**
@@ -31,6 +33,8 @@ const processEnv = {
   NODE_ENV: process.env.NODE_ENV,
   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
   CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
+  NOTION_API_KEY: process.env.NOTION_API_KEY,
+  POSTS_TABLE_ID: process.env.POSTS_TABLE_ID,
 };
 
 // Don't touch the part below

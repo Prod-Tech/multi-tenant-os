@@ -8,15 +8,15 @@ import { Client } from "@notionhq/client";
 import { useEffect, useState } from "react";
 
 export interface Props {
-    organizationId: string
+    posts: PostProps[]
     preview: boolean
-}
+  }
 
-const OrganizationContentView: NextPage<Props> = (props: Props) => {
+const OrganizationContentView: NextPage<Props> = ({ posts = [] }) => {
     const { isLoaded, userId, sessionId, getToken } = useAuth();
-    const notionIntegration = api.notionIntegration.getNotionIntegration.useQuery({organizationId: props.organizationId});
-    const [posts, setPosts] = useState<PostProps[]>([]);
+    // const notionIntegration = api.notionIntegration.getNotionIntegration.useQuery({organizationId: props.organizationId});
 
+    /*
     useEffect(() => {
         console.log(notionIntegration.data);
 
@@ -25,13 +25,14 @@ const OrganizationContentView: NextPage<Props> = (props: Props) => {
                 notionIntegration.data.notionPostsTableId.length == 0) {
                 return;
             }
-            const notion = new Client({ baseUrl: "http://localhost:3000/notion", auth: notionIntegration.data.notionIntegrationToken });
+            const notion = new Client({ auth: notionIntegration.data.notionIntegrationToken });
             // eslint-disable-next-line
             getDatabase(notion, notionIntegration.data.notionPostsTableId).then((posts) => {
                 setPosts(posts);
             });
         }
     }, [notionIntegration.data]);
+    */
 
     if (!isLoaded || !userId) {
         return (
@@ -43,5 +44,22 @@ const OrganizationContentView: NextPage<Props> = (props: Props) => {
         )
     }
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+    if (process.env.POSTS_TABLE_ID == null) {
+      return {
+        notFound: true,
+      }
+    }
+    
+    const client = new Client({ auth: process.env.NOTION_TOKEN })
+
+    const posts = await getDatabase(client, process.env.POSTS_TABLE_ID)
+    
+    return {
+      props: { posts },
+      revalidate: 60, // 15 minutes
+    }
+  }
 
 export default OrganizationContentView;

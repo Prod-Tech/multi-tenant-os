@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import {
     FileWithCaption,
     ExternalFileWithCaption,
@@ -98,8 +99,10 @@ import {
   
     const blocksWithChildren = blocks.map((block) => {
       // eslint-disable-next-line
+      // @ts-ignore
       if (block.has_children && !block[block.type].children) {
         // eslint-disable-next-line
+        // @ts-ignore
         block[block.type]["children"] = childBlocks.find(
           (childBlock) => (childBlock.id = block.id)
         )?.children
@@ -136,6 +139,7 @@ import {
       throw new Error("Block is not an image")
     }
     // eslint-disable-next-line
+    // @ts-ignore
     const image = block[supportedBlockType] as
       | FileWithCaption
       | ExternalFileWithCaption

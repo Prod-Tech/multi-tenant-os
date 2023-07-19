@@ -9,16 +9,14 @@ export const NotionImage: React.FC<{
   const [imageSrc, setImageSrc] = useState(src)
 
   return (
-    <div className="relative max-w-[500px] max-h-[500px]">
-      <NextImage
+    <div className="imageContainer w-full">
+      <img
         src={imageSrc}
         alt={alt}
-        fill
         // layout="fill"
         // objectFit="cover"
         // objectPosition="center"
         className="nextImage p-0 rounded overflow-hidden"
-        unoptimized={process.env.NODE_ENV !== "production"}
         // eslint-disable-next-line
         onError={async () => {
           // eslint-disable-next-line

@@ -8,6 +8,7 @@ import Link from "next/link";
 import { api } from "@/utils/api";
 import { useAuth } from "@clerk/nextjs";
 import OrganizationContentView from "@/components/organization/OrganizationContentView";
+import OrganizationSettings from "@/components/organization/OrganizationSettings";
 
 const OrganizationHome: NextPage = () => {
     const router = useRouter();
@@ -65,7 +66,7 @@ const OrganizationHome: NextPage = () => {
                         className="fill-current group-hover:text-sky-300"
                         ></path>
                     </svg>
-                    <span className="-mr-1 font-medium" onClick={handleHomeClicked}>Home</span>
+                    <span className="-mr-1 font-medium">Home</span>
                     </a>
                 </li>
                 <li>
@@ -244,7 +245,7 @@ const OrganizationHome: NextPage = () => {
                 <div
                 className="flex h-[80vh] items-center justify-center rounded-xl border-2 border-dashed border-gray-300 dark:border-gray-600"
                 >
-                <OrganizationContentView organizationId={orgId} preview={true}/>
+                <OrganizationSettings organizationId={orgId} />
                 </div>
             </div>
             </div>

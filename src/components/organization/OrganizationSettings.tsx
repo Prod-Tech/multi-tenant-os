@@ -7,9 +7,24 @@ import Link from "next/link";
 import { api } from "@/utils/api";
 import { useAuth } from "@clerk/nextjs";
 
-const OrganizationSettings: NextPage = () => {
+type OrganizationSettingsProps = {
+    organizationId: string;
+};
+
+const OrganizationSettings: NextPage<OrganizationSettingsProps> = (props) => {
     const { isLoaded, userId, sessionId, getToken } = useAuth();
-    
+    const createNotionIntegration = api.notionIntegration.createNotionIntegration.useMutation();
+
+    const handleSubmit = async () => {
+        const orgNotionToken = (document.getElementById("organizationNotionToken") as HTMLInputElement).value
+        const orgNotionPostsTableId = (document.getElementById("organizationNotionPostsTableId") as HTMLInputElement).value
+        await createNotionIntegration.mutateAsync({
+            organizationId: props.organizationId,
+            notionIntegrationToken: orgNotionToken,
+            notionPostsTableId: orgNotionPostsTableId
+        })
+    }
+
     if (!isLoaded || !userId) {
         return (
             <p></p>
@@ -50,6 +65,8 @@ const OrganizationSettings: NextPage = () => {
                     <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline self-stretch"
                     type="button"
+                    // eslint-disable-next-line
+                    onClick={handleSubmit}
                     >
                     Save
                     </button>

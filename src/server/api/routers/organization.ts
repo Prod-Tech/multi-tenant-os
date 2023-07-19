@@ -40,6 +40,21 @@ export const organizationRouter = createTRPCRouter({
         organizationId: organization.id,
       }
     });
+  }),
+
+  joinOrganization: protectedProcedure
+  .input(z.object({
+    organizationId: z.string(),
+    userId: z.string(),
+  }))
+  .mutation(async ({ctx, input}) => {
+    const _ = await ctx.prisma.organizationMember.create({
+      data: {
+        userId: input.userId,
+        organizationId: input.organizationId,
+      }
+    });
   })
 
-});
+})
+

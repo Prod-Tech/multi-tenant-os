@@ -7,10 +7,15 @@ import { useAuth } from "@clerk/nextjs";
 
 const OrganizationJoinPage: NextPage = () => {
     const { isLoaded, userId, sessionId, getToken } = useAuth();
+    const joinOrg = api.organization.joinOrganization.useMutation();
 
     const handleJoin = async () => {
       const orgId = (document.getElementById("organizationId") as HTMLInputElement).value
       console.log(orgId)
+      if (!userId) {
+        return;
+      }
+      await joinOrg.mutateAsync({ userId: userId, organizationId: orgId });
     }
 
     if (!isLoaded || !userId) {
@@ -40,6 +45,8 @@ const OrganizationJoinPage: NextPage = () => {
                   <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     type="button"
+                    // eslint-disable-next-line
+                    onClick={handleJoin}
                   >
                     Join
                   </button>

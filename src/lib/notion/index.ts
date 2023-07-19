@@ -1,4 +1,3 @@
-// @ts-nocheck
 import {
     FileWithCaption,
     ExternalFileWithCaption,
@@ -136,7 +135,7 @@ import {
     if (block.type !== supportedBlockType) {
       throw new Error("Block is not an image")
     }
-    // @ts-ignore
+    // eslint-disable-next-line
     const image = block[supportedBlockType] as
       | FileWithCaption
       | ExternalFileWithCaption

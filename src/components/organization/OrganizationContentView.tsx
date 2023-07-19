@@ -26,6 +26,7 @@ const OrganizationContentView: NextPage<Props> = (props: Props) => {
                 return;
             }
             const notion = new Client({ auth: notionIntegration.data.notionIntegrationToken });
+            // eslint-disable-next-line
             getDatabase(notion, notionIntegration.data.notionPostsTableId).then((posts) => {
                 setPosts(posts);
             });
@@ -43,32 +44,4 @@ const OrganizationContentView: NextPage<Props> = (props: Props) => {
     }
 }
 
-/*
-export const getServerSideProps = async (
-    context: GetServerSidePropsContext<{organizationId: string}>
-) => {
-    const helpers = createServerSideHelpers({
-        router: appRouter,
-        ctx: {},
-        transformer: superjson,
-    });
-
-    if (process.env.POSTS_TABLE_ID == null) {
-      return {
-        notFound: true,
-      }
-    }
-  
-    const posts = await getDatabase(process.env.POSTS_TABLE_ID)
-  
-    generateRssFeed(posts)
-  
-    return {
-      props: {
-        trpcState: helpers.dehydrate(),
-        posts
-      },
-    }
-  }
-*/
 export default OrganizationContentView;

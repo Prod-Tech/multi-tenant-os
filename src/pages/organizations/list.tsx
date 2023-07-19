@@ -11,6 +11,8 @@ const MyOrganizationsPage: NextPage = () => {
     
     useEffect(() => {
         console.log(myOrganizations.data);
+        // eslint-disable-next-line
+        myOrganizations.refetch();
     }, [myOrganizations.data]);
 
     const handleClick = (organization: {

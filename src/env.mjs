@@ -5,7 +5,7 @@ import { z } from "zod";
  * built with invalid env vars.
  */
 const server = z.object({
-  MYSQL_URL: z.string().url(),
+  POSTGRES_URL: z.string().url(),
   NODE_ENV: z.enum(["development", "test", "production"]),
   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string().min(1),
   CLERK_SECRET_KEY: z.string().min(1),
@@ -27,7 +27,7 @@ const client = z.object({
  * @type {Record<keyof z.infer<typeof server> | keyof z.infer<typeof client>, string | undefined>}
  */
 const processEnv = {
-  MYSQL_URL: process.env.MYSQL_URL,
+  POSTGRES_URL: process.env.MYSQL_URL,
   NODE_ENV: process.env.NODE_ENV,
   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
   CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,

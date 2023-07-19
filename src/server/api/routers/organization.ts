@@ -11,6 +11,16 @@ export const organizationRouter = createTRPCRouter({
     return ctx.prisma.organization.findMany();
   }),
 
+  getOrganization: publicProcedure
+  .input(z.object({ organizationId: z.string()}))
+  .query(({ ctx, input }) => {
+    return ctx.prisma.organization.findFirst({
+      where: {
+        id: input.organizationId
+      }
+    });
+  }),
+  
   getUserOrganizations: protectedProcedure.query(({ ctx }) => {
     return ctx.prisma.organizationMember.findMany({
       where: {

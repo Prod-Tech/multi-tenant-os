@@ -11,6 +11,7 @@ import { Client } from "@notionhq/client";
 import { getDatabase } from "@/lib/notion";
 import { PostProps } from "@/lib/types";
 import { PostList } from "@/components/content/PostList";
+import { useEffect } from "react";
 
 interface Props {
     posts: PostProps[]
@@ -20,7 +21,15 @@ interface Props {
 const OrganizationHome: NextPage<Props> = ({ posts = [] }) => {
     const router = useRouter();
     const orgId = router.query.slug as string;
+    const getOrg = api.organization.getOrganization.useQuery({ organizationId: orgId });
     const { userId, isLoaded } = useAuth();
+
+    useEffect(() => {
+        if (getOrg.data) {
+            console.log(getOrg.data);
+        }
+    }, [getOrg.data])
+
     const handleSettingsClicked = () => {
         // eslint-disable-next-line
         router.push(`/organizations/settings/${orgId}`);
@@ -49,7 +58,7 @@ const OrganizationHome: NextPage<Props> = ({ posts = [] }) => {
                     alt=""
                     className="m-auto h-10 w-10 rounded-full object-cover lg:h-28 lg:w-28"
                 />
-                <h5 className="mt-4 hidden text-xl font-semibold text-gray-600 lg:block dark:text-gray-300">Cynthia J. Watts</h5>
+                <h5 className="mt-4 hidden text-xl font-semibold text-gray-600 lg:block dark:text-gray-300">{getOrg.data?.name}</h5>
                 <span className="hidden text-gray-400 lg:block">{orgId}</span>
                 </div>
         
@@ -153,7 +162,7 @@ const OrganizationHome: NextPage<Props> = ({ posts = [] }) => {
             <div className="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
             <div className="sticky top-0 h-16 border-b bg-white dark:bg-gray-800 dark:border-gray-700 lg:py-2.5">
                 <div className="flex items-center justify-between space-x-4 px-6 2xl:container">
-                <h5 hidden className="text-2xl font-medium text-gray-600 lg:block dark:text-white">Dashboard</h5>
+                <h5 hidden className="text-2xl font-medium text-gray-600 lg:block dark:text-white">Organization Code: {orgId}</h5>
                 <button className="-mr-2 h-16 w-12 border-r lg:hidden dark:border-gray-700 dark:text-gray-300">
                     <svg
                     xmlns="http://www.w3.org/2000/svg"
